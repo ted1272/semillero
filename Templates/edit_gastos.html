@@ -1,0 +1,49 @@
+{% extends 'layout.html' %} 
+
+{% block body %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/css/editar.css">
+    <title>Editar</title>
+</head>
+<body>
+    <div class="container1" >
+        <h3 class="titulo">Actualizar Gastos</h3>
+        <div class="contenedor-form" >
+            <form action="{{ url_for('gastos.update_gastos', id=gastos[0]) }}" method="POST">
+
+                <div class="from-group">
+                    <label for="factura">Numero de factura</label><br>
+                    <input type="text" name="factura" placeholder="Nombre Del Producto" value="{{ gastos.1 }}" class="form-control">
+                </div>
+                <div class="from-group">
+                    <label for="valor">valor</label><br>
+                    <input type="number" name="valor" placeholder="Precio" value="{{ gastos.2 }}" class="form-control">
+                </div>
+                <div class="from-group">
+                    <label for="nombreproveedor">Proveedor</label><br>
+                    <input type="text" name="nombreproveedor" placeholder="nombreproveedor" value="{{ gastos.3 }}" class="form-control">
+                </div>
+                <div class="from-group">
+                    <label for="Pago">Pago</label><br>
+                    <input type="text" name="pago" placeholder="Pago" value="{{ gastos.4 }}" class="form-control">
+                </div>
+                <div class="from-group">
+                    <label for="idproveedor">Código proveedor</label><br>
+                    <input type="number" name="idproveedores" placeholder="id proveedor" value="{{ gastos.5 }}" class="form-control">
+                </div>
+                
+                <div class="from-group d-grid gap-2 pt-2 ">
+                    <button type="submit" class="btn btn-success btn-block" >
+                        Guardar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
+{% endblock %}

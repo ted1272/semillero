@@ -1,0 +1,99 @@
+{% extends "layout.html" %}
+{% block body %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proveedores</title>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="form-section">
+        <di class="contenedor-form" id="form-container" style="display: none;">
+            <h3 class="titulo">Ingreso Proveedor</h3>
+            <div class="card card-body">
+                <form action='/agregar_proveedor' method="POST">
+                    <div class="input-form">
+                        <label for="nombre">Nombre Proveedor</label><br>
+                        <input type="text" name="nombre" placeholder="Nombre" class="form-control">
+                    </div>
+                    <div class="input-form">
+                        <label for="nit">Nit</label><br>
+                        <input type="text" name="nit" placeholder="Nit" class="form-control">
+                    </div>
+                    <div class="input-form">
+                        <label for="Direccion">Direccion</label><br>
+                        <input type="text" name="direccion" placeholder="Direccion" class="form-control">
+                    </div>
+                    <div class="input-form">
+                        <label for="telefono">Telefono</label><br>
+                        <input type="text" name="telefono" placeholder="Telefono" class="form-control">
+                    </div>
+                    <div class="input-form">
+                        <button type="submit" class="btn" onclick="hideForm()">
+                            Guardar
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </di>
+    </div>
+    <div class="container-form">
+        <div class="table-section">
+            <h3 class="titulo">Proveedores</h3>
+            <button onclick="showForm()" class="btn" id="new-producto-button">Nuevo proveedor</button>
+            <table class="table table-striped table-bordered bg-white tables-sm">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Nit</th>
+                        <th>Direccion</th>
+                        <th>Telefono</th>
+                        <th>opciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in list_users %}
+                    <tr>
+                        <td>{{row.1}}</td>
+                        <td>{{row.2}}</td>
+                        <td>{{row.3}}</td>
+                        <td>{{row.4}}</td>
+                        <td>
+                            <a href="/editar_proveedores/{{row.0}}"><i class="ri-edit-line"></i></a>
+                            <a href="/eliminar_proveedores/{{row.0}}"><i class="ri-delete-bin-line"></i></a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+
+    </div>
+
+    <script>
+        function showForm() {
+            var formContainer = document.getElementById('form-container');
+            var newProductoButton = document.getElementById('new-producto-button');
+
+            formContainer.style.display = 'block';
+            newProductoButton.style.display = 'none';
+        }
+
+        function hideForm() {
+            var formContainer = document.getElementById('form-container');
+            var newProductoButton = document.getElementById('new-producto-button');
+
+            formContainer.style.display = 'none';
+            newProductoButton.style.display = 'block';
+        }
+    </script>
+
+</body>
+
+</html>
+{% endblock %}

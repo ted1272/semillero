@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/menu.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+
+    <title>Navegacion</title>
+</head>
+
+<body>
+    <header>
+        <div class="content">
+            <div class="menu container">
+                <a class="logo" href="/vendedor">
+                    <i class="ri-home-line"></i><span>bisnesscontrol</span>
+                </a>
+                <input type="checkbox" id="menu">
+                <label for="menu">
+                    <img src="/static/img/menu.png" class="menu-icono" alt="">
+                </label>
+                <nav class="navbar">
+                    <ul>
+                        <li><a class="texto {% if request.path == '/cajavendedor' %}active{% endif %}" href="/cajavendedor">Caja</a></li>
+                        <li><a class="texto {% if request.path == '/salir' %}active{% endif %}" href="/salir">Salir</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        {% block body %}
+        {% endblock %}
+        </header>
+    </body>
+</html>

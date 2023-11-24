@@ -1,0 +1,49 @@
+{% extends 'layout.html' %} 
+
+{% block body %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/css/editar.css">
+    <title>Editar</title>
+</head>
+<body>
+    <div class="container1" >
+        <h3 class="titulo">Actualizar Producto</h3>
+        <div class="contenedor-form" >
+            <form action="{{ url_for('productos.update_producto', id=producto.0) }}" method="POST">
+
+                <div class="from-group">
+                    <label for="nombreproducto">Nombre Producto</label><br>
+                    <input type="text" name="nombreproducto" placeholder="Nombre Del Producto" value="{{ producto.1 }}" class="form-control">
+                </div>
+                <div class="from-group">
+                    <label for="precio">Precio</label><br>
+                    <input type="number" name="precio" placeholder="Precio" value="{{ producto.2 }}" class="form-control">
+                </div>
+                <div class="from-group">
+                    <label for="Codigoproducto">Codigo Producto</label><br>
+                    <input type="number" name="codigo" placeholder="Codigo" value="{{ producto.3 }}" class="form-control">
+                </div>
+                <div class="from-group">
+                    <label for="proveedor">Stock</label><br>
+                    <input type="number" name="stock" placeholder="stock" value="{{ producto.4 }}" class="form-control">
+                </div>
+                <div class="from-group">
+                    <label for="proveedor">Código proveedor</label><br>
+                    <input type="number" name="idproveedores" placeholder="Código" value="{{ producto.5 }}" class="form-control">
+                </div>
+                
+                <div class="from-group d-grid gap-2 pt-2 ">
+                    <button type="submit" class="btn btn-success btn-block" >
+                        Guardar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
+{% endblock %}

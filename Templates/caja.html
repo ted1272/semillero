@@ -1,0 +1,190 @@
+{% extends "layout.html" %}
+{% block body %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="../static/css/caja.css">
+    <title>Caja</title>
+</head>
+
+<body>
+    <div class="contenedor-form">
+        <div class="table-section" id="tablaProductos" ">
+            <h3 class="titulo">Productos</h3>
+            <table class="table">
+               
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Precio</th>
+                        <th>Existencias</th>
+                        <th>Opciones</th>
+                    </tr>
+                </thead>
+                
+                <tbody>
+                    <form id="agregarForm" action="/clienteht" method="post">
+                        <div class="cliente-selector">
+                            <label for="cliente">Seleccione un cliente:</label>
+                            <select name="cliente" id="cliente" class="clienteselec">
+                                <option value="">Seleccione un cliente</option>
+                                {% for cliente in clientes %}
+                                    <option value="{{ cliente[0] }}" data-nombre="{{ cliente[1] }}">{{ cliente[1] }}</option>
+                                {% endfor %}
+                            </select>
+                            <input type="hidden" name="cliente_id" id="cliente_id">
+                            <input type="hidden" name="cliente_nombre" id="cliente_nombre">
+                            <button type="button" class="btn" onclick="validarCliente()">Aceptar</button>
+                        </div>
+                    </form>
+
+                    {% for producto in productos %}
+                        <tr>
+                            <td>{{ producto[1] }}</td>
+                            <td>{{ producto[2] }}</td>
+                            <td>{{ producto[4] }}</td>
+                            <td>
+                                
+
+                                <form method="post" action="/agregar" class="input-form" onsubmit="validarExistencias(event)">
+                                    <input type="hidden" name="idproducto" value="{{ producto[0] }}" class="form-control">
+                                    <input type="hidden" name="nombre" value="{{ producto[1] }}" class="form-control">
+                                    <input type="hidden" name="precio" value="{{ producto[2] }}" class="form-control">
+                                    <label for="cantidad">Cantidad:</label>
+                                    <input type="number" name="cantidad" id="cantidad" value="1" min="1" class="form-control">
+                                    <input type="submit" value="Agregar al carrito" class="btn">
+                                </form>
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="table-section" id="tablaCarrito">
+            <h3 class="titulo">Carrito</h3>
+            <table class="table">
+                
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Precio</th>
+                        <th>cantidad</th>
+                        <th>cliente</th>
+                        <th>Opciones</th>
+                    </tr>
+                </thead>
+        
+                <tbody>
+                    {% for item in carrito %}
+                    <tr>
+                        <td>{{ item[2] }}</td>
+                        <td>{{ item[4] }}</td>
+                        <td>{{ item[5] }}</td>
+                        <td>{{ item[10] }}</td>
+                        <td>
+                            <a href="/eliminar_carrito/{{ item[0] }}" class="btn btn-danger btn-delete" data-idcarrito="{{ item[0] }}">Delete</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                
+            </table>
+            <div >
+                <div>
+                    {% if total_carrito %}
+                        <p>Total del carrito: {{ total_carrito }}</p>
+                    {% else %}
+                        <p>No hay productos en el carrito</p>
+                    {% endif %}
+                </div>
+                <div class="input-form">
+                    <label for="pago">Medio de pago</label>
+                    <select id="medio_pago" name="pago" class="form-control">
+                        <option value="">Seleccione una opción</option>
+                        <option value="nequi">Nequi</option>
+                        <option value="daviplata">Daviplata</option>
+                        <option value="efectivo">Efectivo</option>
+                        <option value="credito">Crédito</option>
+                    </select>
+                </div>
+                <div>
+                    <a href="#" id="facturar_btn" class="btn btn-danger">FACTURAR</a>
+                </div>
+        </div>
+        
+    </div>
+    
+    
+    <script>
+        function validarCliente() {
+            var selectedCliente = document.getElementById('cliente');
+            var selectedClienteId = selectedCliente.options[selectedCliente.selectedIndex].value;
+            
+            
+            if (selectedClienteId) {
+                var selectedClienteNombre = selectedCliente.options[selectedCliente.selectedIndex].getAttribute('data-nombre');
+                
+                document.getElementById('cliente_id').value = selectedClienteId;
+                document.getElementById('cliente_nombre').value = selectedClienteNombre;
+                
+                document.getElementById('agregarForm').submit();
+            } else {
+                alert('Por favor, seleccione un cliente.');
+            }
+        }
+    </script>
+
+    <script>
+        function validarExistencias(event) {
+            event.preventDefault(); 
+
+            const cantidadInput = event.target.querySelector('input[name="cantidad"]');
+            const filaProducto = event.target.closest('tr'); 
+            const existencias = parseInt(filaProducto.querySelector('td:nth-child(3)').textContent, 10); 
+            const cantidad = parseInt(cantidadInput.value, 10);
+
+            if (cantidad > existencias) {
+                alert('No hay suficientes existencias para este producto.');
+            } else {
+               
+                event.target.submit();
+            }
+        }
+    </script>
+
+    <script>
+        document.getElementById('facturar_btn').addEventListener('click', function(event) {
+            event.preventDefault();
+            
+            let medioPago = document.getElementById('medio_pago').value; 
+            
+            fetch('/convertir_venta', {
+                method: 'POST',
+                body: JSON.stringify({ medioPago: medioPago }),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    window.location.href = '/caja'; // Redirige a caja.html
+                } else {
+                    throw new Error('Error al convertir a venta');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+    </script>
+
+</body>
+</html>
+{% endblock %}

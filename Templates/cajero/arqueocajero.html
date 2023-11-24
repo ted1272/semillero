@@ -1,0 +1,82 @@
+{% extends "cajero/layoutcajero.html" %}
+{% block body %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ventas</title>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="contenedor-form" id="form-container" style="display: none;">
+        <h3 class="titulo">Arqueo de Caja</h3>
+        <div class="card card-body">
+            <form action='/agregar_arqueocajero' method="POST" id="arqueo-form">
+                <div class="input-form">
+                    <label for="Monto">Monto de apertura</label><br>
+                    <input type="number" name="monto" placeholder="$valor$" class="form-control">
+                </div>
+                <div class="input-form">
+                    <button type="submit" class="btn" onclick="hideForm()">
+                        Guardar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="table-section">
+        
+        <button onclick="showForm()" class="btn" id="new-arqueo-button">Nuevo Arqueo</button>
+        <div class="card card-body">
+            <h3 class="titulo">Arqueo</h3>
+            <table class="table table-striped table-bordered bg-white tables-sm">
+                <thead>
+                    <tr>
+                        <th>Monto</th>
+                        <th>Apertura</th>
+                        <th>Cierre</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in list_users %}
+                    <tr>
+                        <td>{{ row.1 }}</td>
+                        <td>{{ row.2 }}</td>
+                        <td>{{ row.3 }}</td>
+                        
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    </div>
+
+    <script>
+        function showForm() {
+            var formContainer = document.getElementById('form-container');
+            var newArqueoButton = document.getElementById('new-arqueo-button');
+
+            formContainer.style.display = 'block';
+            newArqueoButton.style.display = 'none';
+        }
+
+        function hideForm() {
+            var formContainer = document.getElementById('form-container');
+            var newArqueoButton = document.getElementById('new-arqueo-button');
+
+            formContainer.style.display = 'none';
+            newArqueoButton.style.display = 'block';
+        }
+    </script>
+
+</body>
+
+</html>
+{% endblock %}

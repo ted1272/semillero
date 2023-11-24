@@ -1,0 +1,18 @@
+<!-- En tu archivo preventa.html -->
+{% extends "layout.html" %}
+
+{% block body %}
+    <h1>Preventa</h1>
+    {% if producto %}
+        <form action="{{ url_for('procesar_preventa') }}" method="post">
+            <input type="hidden" name="producto_id" value="{{ producto.idproducto }}">
+            <p>Nombre del Producto: {{ producto.nombreproducto }}</p>
+            <p>Precio: {{ producto.precio }}</p>
+            <label for="cantidad">Cantidad:</label>
+            <input type="number" name="cantidad" id="cantidad" min="1" required>
+            <button type="submit">Realizar Preventa</button>
+        </form>
+    {% else %}
+        <p>Producto no encontrado.</p>
+    {% endif %}
+{% endblock %}

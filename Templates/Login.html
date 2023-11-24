@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>  
+  <link href="{{ url_for('static', filename='css/login.css') }}" rel="stylesheet" type="text/css">
+
+
+</head>
+
+<body>
+  <section class="form-main">
+    <div class="form-content">
+      <div class="circle-1"></div>
+      <div class="circle-2"></div>
+      <div class="circle-3"></div>
+      <div class="box">
+        <h3>Bienvenido</h3>
+        <form action="/hacer_login" method="post" class="form-control">
+          <div class="input-box">
+            <label for="Usuario">Usuario</label>
+            <input type="text" name="username" class="input-control" placeholder="Usuario" required>
+          </div>
+          <div class="input-box">
+            <label for="exampleInputPassword1">Contraseña</label>
+            <input type="password" name="password" class="input-control" placeholder="Contraseña" required>
+            <div class="input-class">
+                <a href="#" class="gradient-text">Has olvidado la contraseña?</a>
+            </div>
+          </div>
+          <button class="btn" id="boton" type="submit" >Iniciar Sesion</button>
+          
+        </form>
+      </div>
+    </div>
+  </section>
+
+
+</body>
+
+</html>

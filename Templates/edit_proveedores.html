@@ -1,0 +1,39 @@
+{% extends 'layout.html' %} 
+
+{%block body%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/css/editar.css">
+    <title>Actualizar proveedores</title>
+</head>
+<body>
+    <div class="container1" >
+        <h3 class="titulo">Actualizar proveedor</h3>
+        <div class="contenedor-form" >
+            <form action="/actualizar/{{proveedores.0}}" method="POST" >
+                <div class="from-group">
+                    <label for="nombre">Proveedor</label><input type="text" name="nombre" placeholder="Nombre" value={{proveedores.1}} class="form-control" >
+                </div>
+                <div class="from-group">
+                    <label for="nit">Nit</label><input type="integer" name="nit" placeholder="Nit" value={{proveedores.2}} class="form-control">
+                </div>
+                <div class="from-group">
+                    <label for="direccion">Direccion</label><input type="text" name="direccion" placeholder="Direccion" value={{proveedores.3}} class="form-control" >
+                </div>
+                <div class="from-group">
+                    <label for="telefono">Telefono</label><input type="text" name="telefono" placeholder="Telefono" value={{proveedores.4}} class="form-control" >
+                </div>
+                <div class="from-group d-grid gap-2 pt-2 ">
+                    <button type="submit"class="btn btn-succes btn-block" >
+                        Guardar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    {%endblock%}    
+</body>
+</html>

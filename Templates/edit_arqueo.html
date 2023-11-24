@@ -1,0 +1,46 @@
+{% extends 'layout.html' %} 
+
+{%block body%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/css/editar.css">
+    <title>Actualizar proveedores</title>
+</head>
+<body>
+
+
+    <div class="container1" >
+        <h3 class="titulo">Actualizar</h3>
+        <div class="contenedor-form">
+            <form action="/actualizarARQ/{{arqueo.0}}" method="POST" >
+                <div class="input-form">
+                    <label for="Monto">Monto</label><br>
+                    <input type = "number" name="monto" placeholder="Monto"  class="form-control" >
+                </div>
+                <div class="input-form">
+                    <label for="FechaAper">Fecha Apertura</label>
+                    <input type = "date" name="apertura" placeholder="Apertura"  class="form-control">
+                </div>
+                <div class="input-form">
+                    <label for="FechaCie">Fecha Cierre</label>
+                    <input type = "date" name="cierra" placeholder="Cierre"  class="form-control" >
+                </div>
+                <div class="input-form">
+                    <label for="ID_empleado">ID Empleado</label>
+                    <input type = "text" name="idempleado" placeholder="ID Empleado"  class="form-control" >
+                </div>
+                <div class="from-group d-grid gap-2 pt-2 ">
+                    <button type="submit"class="btn btn-succes btn-block" >
+                        Guardar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    {%endblock%}    
+</body>
+</html>
